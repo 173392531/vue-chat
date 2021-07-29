@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <router-view></router-view>
+    <div class="container-bottom">
+      <bottom-tab class="tab"></bottom-tab>
+    </div>
   </div>
 </template>
 
 <script>
+import bottomTab from './components/bottomTab/bottom-tab.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    bottomTab
+  }
 }
 </script>
 
