@@ -1,15 +1,7 @@
 <template>
     <div class="body">
         <!-- 头部导航栏 -->
-        <div class="top_bar_line">
-            <van-image
-                class="avator"
-                round
-                width="3rem"
-                height="3rem"
-                :src="require('../../assets/avator_rick.jpg')"
-                />
-        </div>
+        <topbar />
 
         <!-- 下拉刷新 -->
         <van-pull-refresh class="van_pull_refresh" v-model="isLoading" :head-height="80" @refresh="onRefresh">
@@ -36,21 +28,11 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
+import topbar from '../msgtopBar/topbar.vue'
 export default {
-  data() {
-    return {
-      isLoading: false,
-    };
-  },
-  methods: {
-    onRefresh() {
-      setTimeout(() => {
-        Toast('刷新成功');
-        this.isLoading = false;
-      }, 1000);
-    },
-  },
+    components:{
+        topbar
+    }
 }
 </script>
 
@@ -61,12 +43,22 @@ export default {
         left: 0;
         top: 0;
         width: 100%;
-        height: 5rem;
-        border-bottom: 1px solid grey;
+        box-sizing: border-box;
+        height: 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 .5rem;
         .avator{
-            position: absolute;
-            left: 1rem;
-            top: 1rem;
+            // position: absolute;
+            // left: .5rem;
+            // top: .5rem;
+        }
+        .background_theme_btn{
+            
+        }
+        .icon_ell{
+            padding-right: .5rem;
         }
     }
     .van_pull_refresh{
