@@ -6,43 +6,54 @@
                 width="3rem"
                 height="3rem"
                 :src="require('../../assets/avator_rick.jpg')"
+                @click="setStateLeft"
                 />
             <van-popover v-model="showPopover" trigger="click" class="background_theme_btn">
-                
-            <van-grid
-                square
-                clickable
-                :border="false"
-                column-num="3"
-                style="width: 240px;"
-            >
-                <van-grid-item
-                v-for="i in 6"
-                :key="i"
-                text="选项"
-                icon="photo-o"
-                @click="showPopover = false"
-                />
-            </van-grid>
-            <template #reference>
-                <van-button icon="like-o" text="主题心情" color="linear-gradient(to right, #ff6034, #ee0a24)" round></van-button>
-            </template>
+                    
+                <van-grid
+                    :gutter="5"
+                    square
+                    clickable
+                    :border="false"
+                    column-num="3"
+                    style="width: 240px;"
+                >
+                    <van-grid-item
+                    @click="showPopover = false"
+                    >
+                        <van-image :src="require('../../assets/sea.svg')" />
+                        海洋
+                    </van-grid-item>
+                    <van-grid-item
+                    @click="showPopover = false"
+                    >
+                        <van-image :src="require('../../assets/starry_sky.svg')" />
+                        星空
+                    </van-grid-item>
+                    <van-grid-item
+                    @click="showPopover = false"
+                    >
+                        <van-image :src="require('../../assets/city.svg')" />
+                        城市
+                    </van-grid-item>
+                </van-grid>
+                <template #reference>
+                    <van-button icon="like-o" text="主题心情" color="linear-gradient(to right, #ff6034, #ee0a24)" round></van-button>
+                </template>
             </van-popover>
 
             <van-popover v-model="showRightPopover" trigger="click" :actions="actions" class="right_pop" placement="bottom-end">
-            <template #reference>
-                <van-icon name="ellipsis" class="icon_ell" size="24" />
-            </template>
+                <template #reference>
+                    <van-icon name="ellipsis" class="icon_ell" size="24" />
+                </template>
             </van-popover>
         </div>
 </template>
 
 <script>
-import { Toast } from 'vant';
 export default {
   data() {
     return {
-      isLoading: false,
       showPopover: false,
       showRightPopover: false,
       actions: [
@@ -53,17 +64,14 @@ export default {
     };
   },
   methods: {
-    onRefresh() {
-      setTimeout(() => {
-        Toast('刷新成功');
-        this.isLoading = false;
-      }, 1000);
-    },
+      setStateLeft(){
+          this.$root.eventBus.$emit('changeLeftState',true)
+      }
   },
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss' scoped> 
     .top_bar_line{
         position: relative;
         left: 0;
@@ -77,8 +85,7 @@ export default {
         padding: 0 .5rem;
         .avator{
         }
-        .background_theme_btn{
-        }
+
         .icon_ell{
             padding-right: .5rem;
         }

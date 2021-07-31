@@ -2,7 +2,7 @@
     <div class="body">
         <!-- 头部导航栏 -->
         <topbar />
-
+        <folder ></folder>
         <!-- 下拉刷新 -->
         <van-pull-refresh class="van_pull_refresh" v-model="isLoading" :head-height="80" @refresh="onRefresh">
             <!-- 下拉提示，通过 scale 实现一个缩放效果 -->
@@ -29,9 +29,25 @@
 
 <script>
 import topbar from '../msgtopBar/topbar.vue'
-export default {
+import folder from '../left_folder/folder.vue'
+import { Toast } from 'vant';
+export default {  
+    data() {
+        return {
+            isLoading: false,
+        };
+    },
+    methods: {
+        onRefresh() {
+            setTimeout(() => {
+                Toast('刷新成功');
+                this.isLoading = false;
+            }, 1000);
+        },
+    },
     components:{
-        topbar
+        topbar,
+        folder
     }
 }
 </script>
