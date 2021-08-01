@@ -23,6 +23,13 @@
             <template #loading>
                 <img class="doge" src="https://img01.yzcdn.cn/vant/doge-fire.jpg" />
             </template>
+            <van-search
+                v-model="SearchValue"
+                :shape="bakcSearchShame"
+                :background="bakcSearchColor"
+                placeholder="请输入搜索关键词"
+                maxlength="20"
+            />
         </van-pull-refresh>
     </div>
 </template>
@@ -35,6 +42,9 @@ export default {
     data() {
         return {
             isLoading: false,
+            bakcSearchColor:'white',
+            bakcSearchShame:'round',
+            SearchValue:''
         };
     },
     methods: {
@@ -66,9 +76,7 @@ export default {
         align-items: center;
         padding: 0 .5rem;
         .avator{
-            // position: absolute;
-            // left: .5rem;
-            // top: .5rem;
+            
         }
         .background_theme_btn{
             
