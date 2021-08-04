@@ -19,19 +19,19 @@
                     style="width: 240px;"
                 >
                     <van-grid-item
-                    @click="showPopover = false"
+                    @click="choseBackTip('sea')"
                     >
                         <van-image :src="require('../../assets/sea.svg')" />
                         海洋
                     </van-grid-item>
                     <van-grid-item
-                    @click="showPopover = false"
+                    @click="choseBackTip('starrysky')"
                     >
                         <van-image :src="require('../../assets/starry_sky.svg')" />
                         星空
                     </van-grid-item>
                     <van-grid-item
-                    @click="showPopover = false"
+                    @click="choseBackTip('city')"
                     >
                         <van-image :src="require('../../assets/city.svg')" />
                         城市
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
   data() {
     return {
@@ -64,8 +65,13 @@ export default {
     };
   },
   methods: {
+      ...mapMutations(['changeBackType']),
       setStateLeft(){
           this.$root.eventBus.$emit('changeLeftState',true)
+      },
+      choseBackTip(type){
+          this.changeBackType(type)
+          this.showPopover = false
       }
   },
 }

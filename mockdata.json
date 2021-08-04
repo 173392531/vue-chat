@@ -1,0 +1,30 @@
+{
+    "self": {
+        "_id": 0,
+        "avatar": "/static/images/avatar.jpg",
+        "birthday": "1963年2月17日",
+        "name": "乔丹",
+        "gender": "男",
+        "email": "201990755@qq.com",
+        "phone": "13399999999",
+        "address": "美国纽约布鲁克林",
+        "explain": "职业篮球运动员，司职得分后卫，绰号“飞人”",
+        "about": "乔丹的职业生涯年年入选NBA全明星阵容（共14次）并3次当选NBA全明星MVP，10次入选NBA最佳阵容一阵，1985年入选NBA最佳阵容二阵，1988年荣膺NBA年度最佳防守球员，9次入选NBA最佳防守阵容一阵，3次荣膺NBA抢断王，2次夺得NBA全明星扣篮大赛冠军，1984年以及1992年夺得奥运会金牌"
+    },
+    "friend": [
+        {   "_id": 1,
+            "avatar": "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc8%2Fdd%2Fb9%2Fc8ddb934a69d90216f1b406cf3975475.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630599793&t=66b142f2132abcd5c8fb7910bd8fc98f",
+            "name": "海绵宝宝"
+        },
+        {   
+            "_id": 2,
+            "avatar": "https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180520%2F0473e00bdfd2476fbe0c228a45a1652c.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630599793&t=7939672faf66a0c15a3ef15f28adbafe",
+            "name": "女朋友"
+        },
+        {   
+            "_id": 3,
+            "avatar": "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201710%2F24%2F20171024071632_hzJ8n.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630599793&t=f9a4e4b5c12e0e522d2df01ed748493a",
+            "name": "rainMan"
+        }
+    ]
+}

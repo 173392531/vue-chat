@@ -23,6 +23,8 @@
             <template #loading>
                 <img class="doge" src="https://img01.yzcdn.cn/vant/doge-fire.jpg" />
             </template>
+
+            <!-- 搜索框 -->
             <van-search
                 v-model="SearchValue"
                 :shape="bakcSearchShame"
@@ -30,6 +32,35 @@
                 placeholder="请输入搜索关键词"
                 maxlength="20"
             />
+            <!-- 展示用户列表 -->
+            <van-list
+            v-if="isAjax&&nowMessageList"
+            class="van_user_list"
+            >
+                <van-cell 
+                :title="item.friend.name"
+                v-for="(item,index) in nowMessageList" 
+                :key="index"
+                class="cell_avator"
+                @click="getActiveId_x(item._id)"
+                :class="`back-${backType}`">
+                    <van-image
+                        :src="item.friend.avatar"
+                        round
+                        width="3rem"
+                        height="3rem"
+                        class="avatar_round"
+                    />
+                    <!--预览信息-->
+                    <p class="cell_text" :class="`back_color-${backType}`">
+                        {{item.list[item.list.length-1].message}}
+                    </p>
+                    <p class="cell_time" :class="`back_color-${backType}`">
+                        {{item.list[item.list.length-1].time}}
+                    </p>
+                    <van-badge class="cell_badge" :content="`${item.list.length}`" max="99" color="isShowedText"/>
+                </van-cell>
+            </van-list>
         </van-pull-refresh>
     </div>
 </template>
@@ -38,16 +69,34 @@
 import topbar from '../msgtopBar/topbar.vue'
 import folder from '../left_folder/folder.vue'
 import { Toast } from 'vant';
+import { mapState, mapGetters, mapMutations } from 'vuex'
 export default {  
     data() {
         return {
             isLoading: false,
             bakcSearchColor:'white',
             bakcSearchShame:'round',
-            SearchValue:''
+            SearchValue:'',
+            isShowedText:''
         };
     },
+    computed: {
+        ...mapGetters(['nowMessageList']),
+        // ajax是否已经结束
+        ...mapState(['isAjax','backType'])
+    },
+    mounted(){
+        // setTimeout(()=>{
+            console.log('nowMessageList',this.nowMessageList);
+        // },1000)
+    },
     methods: {
+        ...mapMutations(['showDialog', 'getActiveId', 'zeroRemove', 'removeMessage']),
+        // 获取点击的friend的_id
+        getActiveId_x(id) {
+            this.getActiveId({ activeId: id })
+            this.showDialog()
+        },
         onRefresh() {
             setTimeout(() => {
                 Toast('刷新成功');
@@ -75,14 +124,83 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 0 .5rem;
-        .avator{
-            
-        }
-        .background_theme_btn{
-            
-        }
         .icon_ell{
             padding-right: .5rem;
+        }
+    }
+    .back-sea{
+        background: url('../../assets/sea_background.png') no-repeat;
+        background-position:0 75%;
+        background-size: 100vw 35vh;
+    }
+    .back-city{
+        background: url('../../assets/city_background.jpeg') no-repeat;
+        background-position:0 75%;
+        background-size: 100vw 35vh;
+    }
+    .back-starrysky{
+        background: url('../../assets/back_dark_starry.jpeg') no-repeat;
+        background-position:0 55%;
+        background-size: 100vw 35vh;
+    }
+    .cell_avator{
+        width: 100%;
+        height: 5rem;
+        border-bottom: 1px solid #e5e5e5;
+        position: relative;
+        .avatar_round{
+            position: absolute;
+            left: .5rem;
+            top: .5rem;
+        }
+        .cell_text{
+            position: absolute;
+            left: 4.5rem;
+            top: 1.2rem;
+        }
+        .cell_time{
+            position: absolute;
+            right: 1rem;
+            top: -0.45rem;
+        }
+        .cell_badge{
+            position: absolute;
+            right: 1rem;
+            top: 2.3rem;
+        }
+        .back_color-sea{
+            color: #00FFFF;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .back_color-city{
+            color: #CC00FF;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .back_color-starrysky{
+            color: #999999;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .van-cell__title{
+            position: absolute !important;
+            left: 5.5rem;
+            top: 1rem;
+            background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
+            -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
+            -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+            -webkit-background-size: 200% 100%; 
+            -webkit-animation: masked-animation 4s linear infinite;
+            font-size: 14px; 
+        }
+        @keyframes masked-animation {
+            0% {
+                background-position: 0  0;
+            }
+            100% {
+                background-position: -100%  0;
+            }
         }
     }
     .van_pull_refresh{
