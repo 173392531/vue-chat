@@ -71,6 +71,12 @@ const mutations={
   },
   changeBackType(state,type){
       state.backType=type
+  },
+  changeMoreDialogState(state){
+    state.more_show=!state.more_show
+  },
+  changeLang(state){
+    state.checked_lang=!state.checked_lang
   }
 }
 export default mutations

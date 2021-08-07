@@ -1,16 +1,16 @@
 <template>
   <div class="hello">
     <van-tabbar v-model="active" @change="handleChange">
-      <van-tabbar-item icon="chat-o">消息</van-tabbar-item>
+      <van-tabbar-item icon="chat-o">{{$t('m.消息')}}</van-tabbar-item>
 
       <van-tabbar-item>
-        <span>朋友</span>
+        <span>{{$t('m.朋友')}}</span>
         <template #icon="props">
           <img :src="props.active ? icon.active : icon.inactive" />
         </template>
       </van-tabbar-item>
 
-      <van-tabbar-item icon="star-o">动态</van-tabbar-item>
+      <van-tabbar-item icon="star-o">{{$t('m.动态')}}</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

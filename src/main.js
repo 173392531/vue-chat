@@ -7,8 +7,21 @@ import store from './store'
 import axios from 'axios'
 import Vant from 'vant';
 import 'vant/lib/index.css';
+//引入中英文切换插件vue-i18n
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n) // 挂载
 Vue.use(Vant);
 Vue.config.productionTip = false
+
+const i18n = new VueI18n({
+  locale: 'zh-CN',    // 语言标识
+  messages: {
+    'en-US': require('./lang/en.js'),
+    'zh-CN': require('./lang/zh.js')
+  }
+})
+
 
 // 在vue原型中添加$http方法等于axios
 Vue.prototype.$http = axios
@@ -23,6 +36,7 @@ var vm= new Vue({
   data:{
     eventBus:new Vue(),
   },
+  i18n,
   components: { App },
   template: '<App/>',
   // 组件创建前，进行异步数据数据请求

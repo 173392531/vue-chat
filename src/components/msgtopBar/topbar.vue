@@ -22,27 +22,27 @@
                     @click="choseBackTip('sea')"
                     >
                         <van-image :src="require('../../assets/sea.svg')" />
-                        海洋
+                        {{$t('m.海洋')}}
                     </van-grid-item>
                     <van-grid-item
                     @click="choseBackTip('starrysky')"
                     >
                         <van-image :src="require('../../assets/starry_sky.svg')" />
-                        星空
+                        {{$t('m.星空')}}
                     </van-grid-item>
                     <van-grid-item
                     @click="choseBackTip('city')"
                     >
                         <van-image :src="require('../../assets/city.svg')" />
-                        城市
+                        {{$t('m.城市')}}
                     </van-grid-item>
                 </van-grid>
                 <template #reference>
-                    <van-button icon="like-o" text="主题心情" color="linear-gradient(to right, #ff6034, #ee0a24)" round></van-button>
+                    <van-button icon="like-o" :text="$t('m.主题心情')" color="linear-gradient(to right, #ff6034, #ee0a24)" round></van-button>
                 </template>
             </van-popover>
 
-            <van-popover v-model="showRightPopover" trigger="click" :actions="actions" class="right_pop" placement="bottom-end">
+            <van-popover v-model="showRightPopover" trigger="click" :actions="actions" @select="select" class="right_pop" placement="bottom-end">
                 <template #reference>
                     <van-icon name="ellipsis" class="icon_ell" size="24" />
                 </template>
@@ -58,22 +58,47 @@ export default {
       showPopover: false,
       showRightPopover: false,
       actions: [
-        { text: '选项一', icon: 'add-o' },
-        { text: '选项二', icon: 'music-o' },
-        { text: '选项三', icon: 'more-o' },
-      ],
+        { id: 0 , text: '', icon: 'add-o' },
+        { id: 1 , text: '', icon: 'music-o' },
+        { id: 2 , text: '', icon: 'more-o' },
+      ]
     };
   },
+  computed:{
+      com_lang(){
+          return [
+            this.$t('m.上传'),
+            this.$t('m.音乐'),
+            this.$t('m.更多'),
+          ]
+      }
+  },
   methods: {
-      ...mapMutations(['changeBackType']),
+      ...mapMutations(['changeBackType','changeMoreDialogState']),
       setStateLeft(){
           this.$root.eventBus.$emit('changeLeftState',true)
       },
       choseBackTip(type){
           this.changeBackType(type)
           this.showPopover = false
+      },
+      select(val){
+          console.log(val);
+          if(val.id==2){
+             this.changeMoreDialogState()
+          }
+          this.initLang()
+      },
+      //   初始化语言
+      initLang(){
+          for(let i=0;i<this.com_lang.length;i++){
+              this.actions[i].text=this.com_lang[i]
+          }
       }
   },
+  mounted(){
+      this.initLang() 
+  }
 }
 </script>
 

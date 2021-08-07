@@ -52,7 +52,9 @@ let state={
         _id: 3,
         list: [{ _id: 3, message: '请问你要来点兔子吗', time: '3:12' }]
         }
-    ]
+    ],
+    more_show:false,
+    checked_lang:false,
 }
 
 const store = new Vuex.Store({
