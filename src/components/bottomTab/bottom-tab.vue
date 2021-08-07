@@ -33,7 +33,7 @@ export default {
   mounted(){
     console.log(window.location.hash);
     this.redirectRouterName=this.searchIndex(this.renderRouter())
-    console.log(this.redirectRouterName);
+    console.log('this.redirectRouterName',this.redirectRouterName);
     this.active=this.redirectRouterName
   },
   methods:{
@@ -49,6 +49,8 @@ export default {
     renderRouter(){
       let str=window.location.hash
       str=str.slice(2)
+      console.log('str',str);
+      
       return str
     },
     searchIndex(str){

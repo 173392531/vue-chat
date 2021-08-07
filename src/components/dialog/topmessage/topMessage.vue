@@ -23,7 +23,6 @@ methods:{
     height: 8vh;
     background-color: pink;
     display: flex;
-    // justify-content: center;
     align-items: center;
     .left_arrow{
         margin-left: 1rem;

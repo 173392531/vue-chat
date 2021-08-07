@@ -21,7 +21,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import arrowDialog from './arrowdialog.vue'
+import arrowDialog from './arrowDialog/arrowdialog.vue'
 export default {
   name: 'dialogue',
   props: ['userData'],
@@ -45,29 +45,35 @@ export default {
   mounted(){
       console.log('userData',this.userData);
   },
+  updated() {
+    this.$emit('scrollC')
+  }
 }
 </script>
 
 <style lang="scss">
+@mixin avator-position($position, $left, $right, $top) {
+  position: $position;
+  left: $left;
+  right:$right;
+  top:$top;
+}
 .dialogue_wrapper{
     position: relative;
     width: 100vw;
-    height: 70vh;
+    min-height:80vh;
     background-color: #ececf6;
+    overflow: auto;
     .list_wrapper{
         width: 100vw;
         height: 4rem;
         position: relative;
     }
     .left_dia_avator{
-        position: absolute;
-        left: .5rem;
-        top: .5rem;
+        @include avator-position(absolute,.5rem,null,.5rem)
     }
     .right_dia_avator{
-        position: absolute;
-        right: .5rem;
-        top: .5rem;
+        @include avator-position(absolute,null,.5rem,.5rem)
     }
 }
 </style>

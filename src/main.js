@@ -16,7 +16,7 @@ Vue.prototype.$http = axios
 router.replace('message')
 
 /* eslint-disable no-new */
-new Vue({
+var vm= new Vue({
   el: '#app',
   router,
   store,
@@ -30,3 +30,4 @@ new Vue({
     this.$store.dispatch('getAllData', this)
   }
 })
+window.vm=vm

@@ -1,23 +1,43 @@
 <template>
   <div class="dialog_wrapper">
-    <top-message />
+    <!-- 聊天界面头部栏 -->
+    <van-sticky :offset-top="0">
+      <top-message />
+    </van-sticky>
+
+    <!-- 对话框 -->
     <my-dialogue :userData="userData"
                    class="dialogue"
-                   ></my-dialogue>
-    <van-field
-        v-model="myvalue"
-        left-icon="smile-o"
-        placeholder="输入文字"
-        @keyup.enter.native="sendValue"
-        maxlength="16"
-    />
+                   @scrollC="scrollC"
+                   ></my-dialogue>    
+
+    <!-- 锚点链接 -->
+    <a 
+    name="1"
+    ref="clickEnd"
+    href="#1"></a>
+
+    <!-- 底部输入框 -->
+    <van-sticky :offset-top="0" class="sticky_bottom">
+      <van-tabbar>
+            <van-field
+                v-model="myvalue"
+                left-icon="smile-o"
+                placeholder="输入文字"
+                class="input_wrapper"
+                @keyup.enter.native="sendValue"
+                maxlength="16"
+            />
+      </van-tabbar>
+    </van-sticky>
+
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import myDialogue from './dialogue'
-import topMessage from './topMessage.vue'
+import myDialogue from './dialogue/dialogue.vue'
+import topMessage from './topmessage/topMessage.vue'
 export default {
   name: 'dialog',
   components: {
@@ -67,6 +87,13 @@ export default {
       }
       this.myvalue = ''
     },
+    // 监听子组件事件
+    scrollC() {
+      // 取巧的方法，每次组件更新后模拟点击，破坏性的修改哈希值，但是简便（此处可以修改为正常控制滚动条）
+      this.$refs.clickEnd.click()
+      // window.scrollTo(0, document.querySelector('.dialogue_wrapper').style.height)
+      // console.log(document.querySelector('.dialogue_wrapper').height);
+    },
     // // 输入框获得焦点时触发
     // focus() {
     //   this.timer.T = setInterval(() => {
@@ -82,9 +109,22 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+$bottombar-height:80px;
 .dialog_wrapper{
-    width: 100%;
-    height: 100%;
+    .input_wrapper{
+      height: $bottombar-height;
+      bottom: 0;
+    }
+    .sticky_bottom{
+      height: $bottombar-height;
+      bottom: 0;
+      .van-sticky{
+        height: $bottombar-height;
+        .van-tabbar{
+          height: $bottombar-height;
+        }
+      }
+    }
 }
 </style>
