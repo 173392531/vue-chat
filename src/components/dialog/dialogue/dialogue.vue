@@ -52,28 +52,25 @@ export default {
 </script>
 
 <style lang="scss">
-@mixin avator-position($position, $left, $right, $top) {
-  position: $position;
-  left: $left;
-  right:$right;
-  top:$top;
-}
 .dialogue_wrapper{
-    position: relative;
     width: 100vw;
     min-height:80vh;
     background-color: #ececf6;
     overflow: auto;
     .list_wrapper{
         width: 100vw;
-        height: 4rem;
-        position: relative;
+        overflow: hidden;
     }
     .left_dia_avator{
-        @include avator-position(absolute,.5rem,null,.5rem)
+        vertical-align: top;
+        display: inline-block;
+        margin: .5rem 0 .5rem .5rem;
     }
     .right_dia_avator{
-        @include avator-position(absolute,null,.5rem,.5rem)
+        float: right;
+        vertical-align: top;
+        margin: .5rem .5rem .5rem 0;
+
     }
 }
 </style>

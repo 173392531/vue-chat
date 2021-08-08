@@ -241,6 +241,9 @@ export default {
         height: 5rem;
         border-bottom: 1px solid #e5e5e5;
         position: relative;
+        .van-cell__value{
+            text-align: left !important;
+        }
         .avatar_round{
             position: absolute;
             left: .5rem;
@@ -250,6 +253,10 @@ export default {
             position: absolute;
             left: 4.5rem;
             top: 1.2rem;
+            width: 13.5rem;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
         }
         .cell_time{
             position: absolute;

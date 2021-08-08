@@ -1,33 +1,56 @@
 <template>
-  <div class="arror_wrapper">
-      <div :class="`arrow-${pos}`" class="arrow_img"></div>
+  <div class="arror_wrapper" :style="pos=='leftAvatar'?'':'float:right'">
+      <div v-show="pos=='leftAvatar'" class="arrow_img">
+          <img :src="imgSrc" alt="">
+      </div>
       <div :class="`talk_body-${pos}`">
           <slot />
+      </div>
+      <div v-show="pos=='rightAvatar'" class="arrow_img">
+          <img :src="imgSrc" alt="">
       </div>
   </div>
 </template>
 
 <script>
+import leftAvatar from  '../../../../assets/leftAvatar.svg'
+import rightAvatar from  '../../../../assets/rightAvatar.svg'
 export default {
     props:[
         'pos'
-    ]
+    ],
+    data(){
+        return{
+            
+        }
+    },
+    computed:{
+        imgSrc(){
+            if(this.pos=='leftAvatar'){
+                return leftAvatar
+            }else{
+                return rightAvatar
+            }
+        }
+    },
+    mounted(){
+        console.log('imgSrc',this.imgSrc);
+        console.log('this.pos',this.pos);
+
+        
+    }
 }
 </script>
 
 <style lang="scss">
-@mixin avator-url($svg) {
-  background: $svg 0 0 no-repeat;
-  background-size: 100% 100%;
-}
 %talk_body{
     font-size: 14px;
     max-width: 14rem;
     padding: .4rem;
     background-color: #ffffff;
-    top: 1rem;
-    position: absolute;
     border-radius: 8px;
+    display: inline-block;
+    margin-top: -4px;
 }
 %arrow_generality{
     position: absolute;
@@ -35,28 +58,26 @@ export default {
 }
 .arror_wrapper{
     background-color: #ececf6;
-
+    display: inline-block;
+    margin:16px 0;
     .talk_body-leftAvatar{
         @extend %talk_body;
-        left: 4.4rem;
+        margin-left: -.85rem;
     }
     .talk_body-rightAvatar{
         @extend %talk_body;
-        right: 4.4rem;
+        margin-right: -.85rem;
     }
     .arrow_img{
+        display: inline-block;
         width: 1.5rem;
         height: 1.5rem;
-    }
-    .arrow-rightAvatar{
-        @extend %arrow_generality;
-        @include avator-url(url('../../../../assets/right_arrow.svg'));
-        right: 3.5rem;
-    }
-    .arrow-leftAvatar{
-        @extend %arrow_generality;
-        @include avator-url(url('../../../../assets/left_arrow.svg'));
-        left: 3.5rem;
+        vertical-align: top;
+        img{
+            width: 100%;
+            height: 100%;
+            vertical-align: bottom;
+        }
     }
 }
 </style>

@@ -21,12 +21,12 @@
     <van-sticky :offset-top="0" class="sticky_bottom">
       <van-tabbar>
             <van-field
+                ref="input_text"
                 v-model="myvalue"
                 left-icon="smile-o"
                 placeholder="输入文字"
                 class="input_wrapper"
                 @keyup.enter.native="sendValue"
-                maxlength="16"
             />
       </van-tabbar>
     </van-sticky>
@@ -91,20 +91,11 @@ export default {
     scrollC() {
       // 取巧的方法，每次组件更新后模拟点击，破坏性的修改哈希值，但是简便（此处可以修改为正常控制滚动条）
       this.$refs.clickEnd.click()
-      // window.scrollTo(0, document.querySelector('.dialogue_wrapper').style.height)
-      // console.log(document.querySelector('.dialogue_wrapper').height);
+      this.autoFocus()
     },
-    // // 输入框获得焦点时触发
-    // focus() {
-    //   this.timer.T = setInterval(() => {
-    //     // 完美解决输入框被软键盘遮挡
-    //     this.$refs.footer.scrollIntoView(false)
-    //   }, 200)
-    // },
-    // blur() {
-    //   // 输入框失去焦点时清除定时器
-    //   clearInterval(this.timer.T)
-    // }
+    autoFocus(){
+      this.$refs.input_text.focus()
+    }
   }
 }
 </script>
