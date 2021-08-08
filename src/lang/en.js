@@ -10,5 +10,6 @@ export const m={
     切换语言:'switch language',
     消息:'message',
     朋友:'friend',
-    动态:'discover'
+    动态:'discover',
+    设置:'setting',
 }

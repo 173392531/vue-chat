@@ -31,15 +31,16 @@
                 :background="bakcSearchColor"
                 :placeholder="$t('m.请输入搜索关键词')"
                 maxlength="20"
+                @input="search_input"
             />
             <!-- 展示用户列表 -->
             <van-list
-            v-if="isAjax&&nowMessageList"
+            v-if="isAjax&&friendsList"
             class="van_user_list"
             >
                 <van-cell 
                 :title="item.friend.name"
-                v-for="(item,index) in nowMessageList" 
+                v-for="(item,index) in friendsList" 
                 :key="index"
                 class="cell_avator"
                 @click="getActiveId_x(item._id)"
@@ -62,7 +63,7 @@
                 </van-cell>
             </van-list>
         </van-pull-refresh>
-        <more-dialog width="80%" height="30%" top="35vh" title="设置" :visible="more_show">
+        <more-dialog width="80%" height="30%" top="35vh" :title="$t('m.设置')" :visible="more_show">
             <div class="select_box">
                 <div class="change_lang_box">
                     <div class="changeLang_text">
@@ -85,6 +86,7 @@ import folder from '../left_folder/folder.vue'
 import { Toast } from 'vant';
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import MoreDialog from '../msgtopBar/moreDialog/moredialog.vue'
+import _ from 'lodash'
 export default {  
     data() {
         return {
@@ -93,7 +95,8 @@ export default {
             bakcSearchShame:'round',
             SearchValue:'',
             isShowedText:'',
-            inner_switch_lang:false
+            inner_switch_lang:false,
+            friendsList:null,
         };
     },
     computed: {
@@ -104,7 +107,17 @@ export default {
     mounted(){
         // setTimeout(()=>{
             console.log('nowMessageList',this.nowMessageList);
+            // 获取朋友列表
+            // debugger
+            
+            console.log(
+                'this.friendsList',
+                this.friendsList
+            );
+            
+            // 将switch按钮与vuex中的数据绑定
             this.inner_switch_lang=this.checked_lang
+            this.friendsList=_.cloneDeep(this.nowMessageList)
         // },1000)
     },
     watch:{
@@ -118,6 +131,11 @@ export default {
               this.$i18n.locale = 'zh-CN'
               this.$refs.topbarchild.initLang();
             }
+        },
+        nowMessageList(val){
+            console.log('我这此时更新friend列表');
+            
+            this.friendsList=_.cloneDeep(val)
         }
     },
     methods: {
@@ -132,6 +150,25 @@ export default {
                 Toast('刷新成功');
                 this.isLoading = false;
             }, 1000);
+        },
+        search_input(value){
+            this.friendsList=_.cloneDeep(this.nowMessageList)
+            if(value!==''){
+                const len=this.friendsList.length
+                let arr=new Array(len).fill(false)
+                this.friendsList=this.friendsList.filter(x => {  
+                    x.list.forEach((item)=>{
+                        if(item.message.indexOf(value) !== -1){
+                            arr[x._id-1]=true
+                        }
+                    })
+                    if (x.friend.name.indexOf(value) !== -1){
+                        return true
+                    }else{
+                        return arr[x._id-1]
+                    }
+                })
+            }
         },
     },
     components:{

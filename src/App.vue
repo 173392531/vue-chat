@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div v-if="!dialog">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
     <div v-show="!dialog" class="container-bottom">
       <bottom-tab class="tab"></bottom-tab>
