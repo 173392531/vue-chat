@@ -1,7 +1,9 @@
 <template>
     <div class="body">
         <!-- 头部导航栏 -->
-        <topbar ref="topbarchild"></topbar>
+        <!-- <keep-alive> -->
+            <topbar ref="topbarchild"></topbar>
+        <!-- </keep-alive> -->
         <folder ></folder>
         <!-- 下拉刷新 -->
         <van-pull-refresh class="van_pull_refresh" v-model="isLoading" :head-height="80" @refresh="onRefresh">
@@ -66,12 +68,16 @@
         <more-dialog width="80%" height="30%" top="35vh" :title="$t('m.设置')" :visible="more_show">
             <div class="select_box">
                 <div class="change_lang_box">
-                    <div class="changeLang_text">
+                    <div class="changeLang_text" v-active="{
+                        className:'active-text',
+                        activeIndex:inner_switch_lang?1:0,
+                        activeClass:'showRed'
+                    }">
                         <span>{{$t('m.切换语言')}}</span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span :class="inner_switch_lang?'':'showRed'">中</span>
+                        <span class="active-text">中</span>
                         <img src="../../assets/change_lang.svg" alt="">
-                        <span :class="inner_switch_lang?'showRed':''">英</span>
+                        <span class="active-text">英</span>
                     </div>
                     <div><van-switch v-model="inner_switch_lang" @change="changeLang" size="24px" /></div>
                 </div>
@@ -87,7 +93,11 @@ import { Toast } from 'vant';
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import MoreDialog from '../msgtopBar/moreDialog/moredialog.vue'
 import _ from 'lodash'
+import Active from '../../directives/active'
 export default {  
+    directives:{
+        Active
+    },
     data() {
         return {
             isLoading: false,

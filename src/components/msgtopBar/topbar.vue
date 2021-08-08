@@ -17,21 +17,29 @@
                     :border="false"
                     column-num="3"
                     style="width: 240px;"
+                    v-active="{
+                        className:'van-grid-item',
+                        activeIndex:curIndex,
+                        activeClass:'activeBackground'
+                    }"
                 >
                     <van-grid-item
                     @click="choseBackTip('sea')"
+                    class="item_back"
                     >
                         <van-image :src="require('../../assets/sea.svg')" />
                         {{$t('m.海洋')}}
                     </van-grid-item>
                     <van-grid-item
                     @click="choseBackTip('starrysky')"
+                    class="item_back"
                     >
                         <van-image :src="require('../../assets/starry_sky.svg')" />
                         {{$t('m.星空')}}
                     </van-grid-item>
                     <van-grid-item
                     @click="choseBackTip('city')"
+                    class="item_back"
                     >
                         <van-image :src="require('../../assets/city.svg')" />
                         {{$t('m.城市')}}
@@ -51,8 +59,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapState } from 'vuex';
+import Active from '../../directives/active'
 export default {
+  directives:{
+      Active
+  },
   data() {
     return {
       showPopover: false,
@@ -61,10 +73,17 @@ export default {
         { id: 0 , text: '', icon: 'add-o' },
         { id: 1 , text: '', icon: 'music-o' },
         { id: 2 , text: '', icon: 'more-o' },
-      ]
+      ],
+      backGround:[
+        'sea',
+        'starrysky',
+        'city'
+      ],
+      curIndex:-1
     };
   },
   computed:{
+      ...mapState(['backType']),
       com_lang(){
           return [
             this.$t('m.上传'),
@@ -79,6 +98,7 @@ export default {
           this.$root.eventBus.$emit('changeLeftState',true)
       },
       choseBackTip(type){
+          this.curIndex=this.backGround.indexOf(type)
           this.changeBackType(type)
           this.showPopover = false
       },
@@ -98,11 +118,15 @@ export default {
   },
   mounted(){
       this.initLang() 
+      console.log('type',this.backType);
+      this.curIndex=this.backGround.indexOf(this.backType)
+      console.log('cur',this.curIndex);
+      
   }
 }
 </script>
 
-<style lang='scss' scoped> 
+<style lang='scss' > 
     .top_bar_line{
         position: relative;
         left: 0;
@@ -121,4 +145,11 @@ export default {
             padding-right: .5rem;
         }
     }
+    .activeBackground{
+        .van-grid-item__content--center {
+            background-color: lightseagreen;
+            border-radius: 6px;
+        }
+    }
+
 </style>

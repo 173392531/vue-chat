@@ -19,11 +19,6 @@ export default {
     props:[
         'pos'
     ],
-    data(){
-        return{
-            
-        }
-    },
     computed:{
         imgSrc(){
             if(this.pos=='leftAvatar'){
@@ -33,12 +28,6 @@ export default {
             }
         }
     },
-    mounted(){
-        console.log('imgSrc',this.imgSrc);
-        console.log('this.pos',this.pos);
-
-        
-    }
 }
 </script>
 
@@ -59,7 +48,7 @@ export default {
 .arror_wrapper{
     background-color: #ececf6;
     display: inline-block;
-    margin:16px 0;
+    margin:18px 0;
     .talk_body-leftAvatar{
         @extend %talk_body;
         margin-left: -.85rem;
