@@ -14,7 +14,7 @@
 
 <script>
 import leftAvatar from  '../../../../assets/leftAvatar.svg'
-import rightAvatar from  '../../../../assets/rightAvatar.svg'
+import rightAvatar from  '../../../../assets/blue_rightArrow.svg'
 export default {
     props:[
         'pos'
@@ -55,6 +55,7 @@ export default {
     }
     .talk_body-rightAvatar{
         @extend %talk_body;
+        background-color: #4fbafe;
         margin-right: -.85rem;
     }
     .arrow_img{
