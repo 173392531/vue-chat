@@ -41,22 +41,22 @@
             class="van_user_list"
             >
                 <van-cell 
-                :title="item.friend.name"
+                :title="getSearchName(item)"
                 v-for="(item,index) in friendsList" 
                 :key="index"
                 class="cell_avator"
                 @click="getActiveId_x(item._id)"
                 :class="`back-${backType}`">
                     <van-image
-                        :src="item.friend.avatar"
+                        :src="showSearchAvator(item)"
                         round
                         width="3rem"
                         height="3rem"
                         class="avatar_round"
                     />
                     <!--预览信息-->
-                    <p class="cell_text" :class="`back_color-${backType}`">
-                        {{item.list[item.list.length-1].message}}
+                    <p class="cell_text" :class="`back_color-${backType}`" v-html="showMsgComputed(item)">
+                        <!-- {{item.list[item.list.length-1].message}} -->
                     </p>
                     <p class="cell_time" :class="`back_color-${backType}`">
                         {{item.list[item.list.length-1].time}}
@@ -107,12 +107,17 @@ export default {
             isShowedText:'',
             inner_switch_lang:false,
             friendsList:null,
+            searchNewName:null,
+            selfmsg:{
+                name:'rick',
+                avatar:'https://pic4.zhimg.com/v2-2507d7d7ebddf8bed57a51a3f05d472e_xl.jpg',
+            }
         };
     },
     computed: {
         ...mapGetters(['nowMessageList']),
         // ajax是否已经结束
-        ...mapState(['isAjax','backType','more_show','checked_lang'])
+        ...mapState(['isAjax','backType','more_show','checked_lang']),
     },
     mounted(){
         // setTimeout(()=>{
@@ -163,23 +168,87 @@ export default {
         },
         search_input(value){
             this.friendsList=_.cloneDeep(this.nowMessageList)
+            console.log(
+                'search环境的List',this.friendsList
+            );
+            
             if(value!==''){
                 const len=this.friendsList.length
-                let arr=new Array(len).fill(false)
+                let arr=new Array(len).fill(false),_this=this,msgIndex
                 this.friendsList=this.friendsList.filter(x => {  
-                    x.list.forEach((item)=>{
+                    x.list.chosenIndex=null
+                    console.log('x',x);
+                    x.list.forEach((item,index)=>{
+                        console.log('item',item);
                         if(item.message.indexOf(value) !== -1){
+                            msgIndex=index
                             arr[x._id-1]=true
                         }
                     })
                     if (x.friend.name.indexOf(value) !== -1){
                         return true
                     }else{
+                        if(arr[x._id-1]){
+                            x.list.chosenIndex=msgIndex
+                            x.list[msgIndex].message=_this.brightenKeyword(x.list[msgIndex].message,value)
+                            // item.list[item.list.length-1].message
+                            console.log('_this.brightenKeyword(x.friend.name,value)',_this.brightenKeyword(x.list[0].message,value));
+                        }
                         return arr[x._id-1]
                     }
                 })
             }
         },
+        //搜索高亮
+        brightenKeyword(val, keyword) {
+            if (keyword.length > 0) {
+                let keywordArr = keyword.split("");
+                val = val + "";
+                keywordArr.forEach(item => {
+                if (val.indexOf(item) !== -1 && item !== "") {
+                    val = val.replace(
+                    new RegExp(item,'g'),
+                    '<font color="#f75353">' + item + "</font>"
+                    );
+                }
+                });
+                return val;
+            } else {
+                return val;
+            }
+        },
+        showMsgComputed(item){
+            console.log(
+                'item.list',item.list
+            );
+            if(item.list.chosenIndex){
+                let index=item.list.chosenIndex
+                console.log('item.list[index].message',item.list[index].message);
+                return item.list[index].message
+            }
+            return item.list[item.list.length-1].message
+        },
+        showSearchAvator(item){
+            console.log('avaitem',item);
+            let index=item.list.chosenIndex
+            if(index && item.list[index].self){
+                return this.isSearchSelf(item,'avatar')
+            }
+            return item.friend.avatar
+        },
+        getSearchName(item){
+            let index=item.list.chosenIndex
+            if(index && item.list[index].self){
+                return this.isSearchSelf(item,'name')
+            }
+            return item.friend.name
+        },
+        isSearchSelf(item,type){
+            let index=item.list.chosenIndex
+            if(item.list[index].self==true){
+                return this.selfmsg[type]
+            }
+        }
     },
     components:{
         topbar,
