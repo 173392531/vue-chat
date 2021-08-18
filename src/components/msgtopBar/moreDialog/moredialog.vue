@@ -86,7 +86,7 @@ export default {
   overflow: auto;
   margin: 0;
   z-index: 2001;
-  background-color: rgba(0,0,0,0.5);
+  // background-color: rgba(0,0,0,0.5);
   .one-dialog{
     position: relative;
     margin: 15vh auto 50px;

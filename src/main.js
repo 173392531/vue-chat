@@ -10,6 +10,12 @@ import 'vant/lib/index.css';
 //引入中英文切换插件vue-i18n
 import VueI18n from 'vue-i18n'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import Toast from '@/components/toast/toast.js'
+
+Vue.prototype.$toast = Toast
+Vue.use(ElementUI);
 Vue.use(VueI18n) // 挂载
 Vue.use(Vant);
 Vue.config.productionTip = false

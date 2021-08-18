@@ -12,4 +12,5 @@ export const m={
     朋友:'friend',
     动态:'discover',
     设置:'setting',
+    切换成功:'changed successfully',
 }

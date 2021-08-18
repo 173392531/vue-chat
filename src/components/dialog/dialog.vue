@@ -2,7 +2,7 @@
   <div class="dialog_wrapper">
     <!-- 聊天界面头部栏 -->
     <van-sticky :offset-top="0">
-      <top-message />
+      <top-message :userData="userData"></top-message>
     </van-sticky>
 
     <!-- 对话框 -->
@@ -65,16 +65,6 @@ export default {
   },
   methods: {
     ...mapMutations(['showDialog', 'getActiveId', 'showPersonindex']),
-    showDialog_x() {
-      this.showDialog()
-      this.getActiveId({ activeId: 0 })
-      this.$router.push(this.headerTitle)
-    },
-    showPersonindex_x() {
-      this.showDialog()
-      this.showPersonindex()
-      this.$router.push(this.headerTitle)
-    },
     sendValue() {
       if (this.myvalue.length) {
         this.$store.dispatch('sendValue', {

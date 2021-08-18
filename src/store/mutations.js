@@ -3,14 +3,14 @@ const mutations={
   showDialog: (state) => {
     // 判断当前动作是否是在打开对话，如果是在打开对话，那么进行判断当前当前进行对话的好友是否存在消息队列
     // 如果当前活跃的好友不存在消息队列（被删除的）那么就恢复此好友的消息队列，如果存在，那么无动作
-    if (!state.dialog) {
+    // if (!state.dialog) {
       // 空数组用来判断也是true，所以后面加个[0]
-      let message = state.messageList.filter(x => x._id === state.activeId)[0]
-      if (!message) {
-        let oldMessage = state.messageListFB.filter(x => x._id === state.activeId)[0]
-        state.messageList.splice(oldMessage._id - 1, 0, oldMessage)
-      }
-    }
+      // let message = state.messageList.filter(x => x._id === state.activeId)[0]
+      // if (!message) {
+        // let oldMessage = state.messageListFB.filter(x => x._id === state.activeId)[0]
+        // state.messageList.splice(oldMessage._id - 1, 0, oldMessage)
+      // }
+    // }
     state.dialog = !state.dialog
   },
   // 个人主页
@@ -29,10 +29,6 @@ const mutations={
     // debugger
     // ajax状态更改为结束
     state.isAjax = true
-  },
-  // 标题
-  changTitle: (state, { title }) => {
-    state.headerTitle = title
   },
   // 获取当前获得关注的朋友的_id
   getActiveId: (state, { activeId }) => {

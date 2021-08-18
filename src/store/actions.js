@@ -1,6 +1,4 @@
 const actions={
-  // 异步获取基础数据
-  // 这里使用了es7的async函数，相当于封装了promis的generator
   getAllData: async ({ commit }, that) => {
     // 声明变量用来存放之后获得的数据
     let self = {}
@@ -41,7 +39,7 @@ const actions={
       let data = robotData.text + robotData.url
       commit('changeList', { _id, message: data })
     } else if (robotData.code === 302000) {
-      commit('changeList', { _id, message: '暂不支持此类对话' })
+      commit('changeList', { _id, message: '今日回复数已达上限' })
     } else {
       commit('changeList', { _id, message: '暂不支持此类对话' })
     }

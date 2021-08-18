@@ -35,6 +35,8 @@
                 maxlength="20"
                 @input="search_input"
             />
+            <!-- <button @click="toastMsg"></button> -->
+            <!-- <el-color-picker v-model="color1"></el-color-picker> -->
             <!-- 展示用户列表 -->
             <van-list
             v-if="isAjax&&friendsList"
@@ -79,7 +81,7 @@
                         <img src="../../assets/change_lang.svg" alt="">
                         <span class="active-text">英</span>
                     </div>
-                    <div><van-switch v-model="inner_switch_lang" @change="changeLang" size="24px" /></div>
+                    <div><van-switch v-model="inner_switch_lang" @change="changeLang" @click="toastMsg" size="24px" /></div>
                 </div>
             </div>
         </more-dialog>
@@ -111,7 +113,8 @@ export default {
             selfmsg:{
                 name:'rick',
                 avatar:'https://pic4.zhimg.com/v2-2507d7d7ebddf8bed57a51a3f05d472e_xl.jpg',
-            }
+            },
+            color1:null
         };
     },
     computed: {
@@ -248,8 +251,16 @@ export default {
             if(item.list[index].self==true){
                 return this.selfmsg[type]
             }
+        },
+        toastMsg(){
+            this.$nextTick(()=>{
+                setTimeout(()=>{
+                    this.$toast(this.$t('m.切换成功'))
+                },0)
+            })
         }
     },
+
     components:{
         topbar,
         folder,
