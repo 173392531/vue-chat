@@ -13,8 +13,9 @@ import VueI18n from 'vue-i18n'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import Toast from '@/components/toast/toast.js'
-
+import TopMsg from '@/components/topMsg/index.js'
 Vue.prototype.$toast = Toast
+Vue.prototype.$topMsg = TopMsg
 Vue.use(ElementUI);
 Vue.use(VueI18n) // 挂载
 Vue.use(Vant);

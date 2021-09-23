@@ -13,4 +13,5 @@ export const m={
     动态:'discover',
     设置:'setting',
     切换成功:'changed successfully',
+    评分:'score'
 }

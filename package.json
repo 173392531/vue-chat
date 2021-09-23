@@ -11,15 +11,18 @@
   },
   "dependencies": {
     "dev-server": "^0.2.0",
+    "dhtmlx-gantt": "^7.1.6",
     "eventsource-polyfill": "^0.9.6",
     "lodash": "^4.17.21",
+    "qingha-gantt": "^1.0.0",
     "superagent": "^6.1.0",
     "vant": "^2.12.25",
     "vue": "^2.5.2",
     "vue-i18n": "^8.25.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.6.2",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "wl-gantt": "^1.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -84,6 +84,13 @@
                     <div><van-switch v-model="inner_switch_lang" @change="changeLang" @click="toastMsg" size="24px" /></div>
                 </div>
             </div>
+            <div class="score_module">
+                <span class="score_text">{{$t('m.评分')}}</span>
+                <div class="score_img">
+                    <one-rate  show-text v-model="rateValue"></one-rate>
+                </div>
+                <van-icon size="20" class="right_icon" name="upgrade" @click="sendTopMsg" />
+            </div>
         </more-dialog>
     </div>
 </template>
@@ -96,6 +103,7 @@ import { mapState, mapGetters, mapMutations } from 'vuex'
 import MoreDialog from '../msgtopBar/moreDialog/moredialog.vue'
 import _ from 'lodash'
 import Active from '../../directives/active'
+import OneRate from '../rate/index'
 export default {  
     directives:{
         Active
@@ -114,7 +122,8 @@ export default {
                 name:'rick',
                 avatar:'https://pic4.zhimg.com/v2-2507d7d7ebddf8bed57a51a3f05d472e_xl.jpg',
             },
-            color1:null
+            color1: null,
+            rateValue: null,
         };
     },
     computed: {
@@ -143,10 +152,12 @@ export default {
         checked_lang(val){
             console.log('lang',val,this.inner_switch_lang);
             if(this.inner_switch_lang==true){
-              this.$i18n.locale = 'en-US'
+                this.$i18n.locale = 'en-US'
+                console.log('我切换完语言了');
               this.$refs.topbarchild.initLang();
             }else{
               this.$i18n.locale = 'zh-CN'
+               console.log('我切换完语言了');
               this.$refs.topbarchild.initLang();
             }
         },
@@ -162,6 +173,18 @@ export default {
         getActiveId_x(id) {
             this.getActiveId({ activeId: id })
             this.showDialog()
+        },
+        sendTopMsg(){
+            this.$topMsg({
+                text: '评分上传成功',
+                type: 'success',
+                width: 300,
+                canClose: true,
+                isCenter: true,
+                top: 60,
+                onClose: true,
+                maxCount: 3
+            })
         },
         onRefresh() {
             setTimeout(() => {
@@ -253,18 +276,18 @@ export default {
             }
         },
         toastMsg(){
-            this.$nextTick(()=>{
                 setTimeout(()=>{
                     this.$toast(this.$t('m.切换成功'))
+                    console.log('我弹出了');
                 },0)
-            })
         }
     },
 
     components:{
         topbar,
         folder,
-        MoreDialog
+        MoreDialog,
+        OneRate
     }
 }
 </script>
@@ -293,6 +316,29 @@ export default {
                     height: 22px;
                     // vertical-align: baseline;
                 }
+            }
+        }
+    }
+    .score_module{
+        display: flex;
+        margin-top: 12px;
+        // justify-content: space-around;
+        .score_text{
+            font-size: 16px;
+            color: rgb(15, 106, 107);
+        }
+        .score_img{
+            // float:right;
+            // position: absolute;
+            // right: 12px;
+            margin-left: 30px;
+        }
+        .right_icon{
+            position: absolute;
+            right: 1rem;
+            &:active{
+                border-radius: 20px;
+                background-color: #eeeff1;
             }
         }
     }
