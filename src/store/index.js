@@ -7,6 +7,11 @@ import actions from './actions.js'
 Vue.use(Vuex)
 
 let state={
+    // 个人信息
+    self:{
+      avatar:"https://pic4.zhimg.com/v2-2507d7d7ebddf8bed57a51a3f05d472e_xl.jpg",
+      name:"rick"
+    },
     // 对话框
     dialog: false,
     // 侧边栏
