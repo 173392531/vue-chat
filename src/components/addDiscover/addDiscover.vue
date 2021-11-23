@@ -105,6 +105,8 @@ export default {
         if(res){
             this.$emit('collectData')
         }
+        this.$emit('update:discoverDrawer',false)
+        this.discoverText = ''
     }
   }
 };
